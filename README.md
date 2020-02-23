@@ -21,4 +21,4 @@ To get the project up and running please to the following:
 
 ### A gif demonstrating loading the REST API data in React
 
-![Loading the labs from the REST API](https://s3.amazonaws.com/bronsons-captured/screencast_2020-02-23_22-33-08.gif)
+![screencast_2020-02-23_22-33-08](https://user-images.githubusercontent.com/1377956/75112325-7cf50a80-568e-11ea-922d-8c8060dfb3ad.gif)
