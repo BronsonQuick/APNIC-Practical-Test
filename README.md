@@ -11,3 +11,10 @@ To get the project up and running please to the following:
 3. Run `docker-composer up -d`.
 4. Go to [http://localhost:8000/wp-admin](http://localhost:8000/wp-admin) in a browser.
 5. Login with Username: `admin` and Password: `password`.
+
+## Theme Development
+
+1. Go to [http://localhost:8000/wp-admin/themes.php](http://localhost:8000/wp-admin/themes.php) in a browser and activate the "APNIC Test" theme.
+2. Run `cd wp_data/themes/apnic-theme/react-src` in a Terminal.
+3. Run `npm run wpstart` to start the development server.
+4. Browse the frontend and edit the files inside `wp_data/themes/apnic-theme/react-src`.
