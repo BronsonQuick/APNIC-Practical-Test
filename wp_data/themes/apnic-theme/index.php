@@ -39,7 +39,7 @@
         Learn how to configure a non-root public URL by running `npm run wpbuild`.
     -->
     <title>React WordPress Theme</title>
-<link href="/wp-content/themes/apnic-theme/static/css/1.chunk.css?e13f7c3f1981d320ae21" rel="stylesheet"><link href="/wp-content/themes/apnic-theme/static/css/main.chunk.css?e13f7c3f1981d320ae21" rel="stylesheet"></head>
+<link href="/wp-content/themes/apnic-theme/static/css/1.chunk.css?4ef6be19bc61360cbae1" rel="stylesheet"><link href="/wp-content/themes/apnic-theme/static/css/main.chunk.css?4ef6be19bc61360cbae1" rel="stylesheet"></head>
     <body>
     <noscript>
         You need to enable JavaScript to run this app.
@@ -55,5 +55,5 @@
         To begin the development, run `npm run wpstart` or `yarn wpstart`.
         To create a production bundle, use `npm run wpbuild` or `yarn wpbuild`.
     -->
-    <script src="/wp-content/themes/apnic-theme/static/js/bundle.js?e13f7c3f1981d320ae21"></script><script src="/wp-content/themes/apnic-theme/static/js/1.chunk.js?e13f7c3f1981d320ae21"></script><script src="/wp-content/themes/apnic-theme/static/js/main.chunk.js?e13f7c3f1981d320ae21"></script></body>
+    <script src="/wp-content/themes/apnic-theme/static/js/bundle.js?4ef6be19bc61360cbae1"></script><script src="/wp-content/themes/apnic-theme/static/js/1.chunk.js?4ef6be19bc61360cbae1"></script><script src="/wp-content/themes/apnic-theme/static/js/main.chunk.js?4ef6be19bc61360cbae1"></script></body>
 </html>
