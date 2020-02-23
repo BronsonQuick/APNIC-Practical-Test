@@ -19,7 +19,7 @@
       name="description"
       content="Web site created using create-react-wptheme"
     />
-    <link rel="apple-touch-icon" href="<?php echo $TEMPLATE_PATH; ?>/logo192.png" />
+    <link rel="apple-touch-icon" href="/wp-content/themes/apnic-theme/apple-touch-icon-152x152.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -39,7 +39,7 @@
         Learn how to configure a non-root public URL by running `npm run wpbuild`.
     -->
     <title>React WordPress Theme</title>
-<link href="/wp-content/themes/apnic-theme/static/css/main.chunk.css?efe31e19a9bcb1032d83" rel="stylesheet"></head>
+<link href="/wp-content/themes/apnic-theme/static/css/main.chunk.css?13d914e2393ba538235f" rel="stylesheet"></head>
     <body>
     <noscript>
         You need to enable JavaScript to run this app.
@@ -55,5 +55,5 @@
         To begin the development, run `npm run wpstart` or `yarn wpstart`.
         To create a production bundle, use `npm run wpbuild` or `yarn wpbuild`.
     -->
-    <script src="/wp-content/themes/apnic-theme/static/js/bundle.js?efe31e19a9bcb1032d83"></script><script src="/wp-content/themes/apnic-theme/static/js/0.chunk.js?efe31e19a9bcb1032d83"></script><script src="/wp-content/themes/apnic-theme/static/js/main.chunk.js?efe31e19a9bcb1032d83"></script></body>
+    <script src="/wp-content/themes/apnic-theme/static/js/bundle.js?13d914e2393ba538235f"></script><script src="/wp-content/themes/apnic-theme/static/js/0.chunk.js?13d914e2393ba538235f"></script><script src="/wp-content/themes/apnic-theme/static/js/main.chunk.js?13d914e2393ba538235f"></script></body>
 </html>
