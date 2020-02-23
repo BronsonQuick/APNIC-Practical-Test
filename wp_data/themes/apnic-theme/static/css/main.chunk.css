@@ -25,6 +25,9 @@ code {
   justify-content: center;
   margin: 10px;
 }
+p {
+  text-align: center;
+}
 
 
 /*# sourceMappingURL=main.chunk.css.map*/
