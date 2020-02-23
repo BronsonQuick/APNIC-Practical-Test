@@ -1,5 +1,802 @@
 (this["webpackJsonpapnic-theme"] = this["webpackJsonpapnic-theme"] || []).push([[0],{
 
+/***/ "../../../../node_modules/react-list-drag-and-drop/lib/Geometry.js":
+/*!*************************************************************************************************!*\
+  !*** /Volumes/Sites/apnic-practical-test/node_modules/react-list-drag-and-drop/lib/Geometry.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function isRectValid(r) {
+  return r && r.width >= 0 && r.height >= 0;
+}
+
+exports.isRectValid = isRectValid;
+
+function areRectsOverlapping(r0, r1) {
+  var r = getIntersectionRect(r0, r1);
+  return r.width > 0 && r.height > 0;
+}
+
+exports.areRectsOverlapping = areRectsOverlapping;
+
+function getAreaOfIntersection(r0, r1) {
+  var rect = getIntersectionRect(r0, r1);
+  return getRectArea(rect);
+}
+
+exports.getAreaOfIntersection = getAreaOfIntersection;
+
+function getIntersectionRect(r0, r1) {
+  var r0b = getRectBounds(r0);
+  var r1b = getRectBounds(r1);
+  var x1 = r0b.left;
+  var y1 = r0b.top;
+  var x2 = r0b.right;
+  var y2 = r0b.bottom;
+  var x3 = r1b.left;
+  var y3 = r1b.top;
+  var x4 = r1b.right;
+  var y4 = r1b.bottom;
+  var x5 = Math.max(x1, x3);
+  var y5 = Math.max(y1, y3);
+  var x6 = Math.min(x2, x4);
+  var y6 = Math.min(y2, y4);
+  return {
+    left: x5,
+    width: x6 - x5,
+    top: y5,
+    height: y6 - y5
+  };
+}
+
+exports.getIntersectionRect = getIntersectionRect;
+
+function getRectArea(r) {
+  return isRectValid(r) ? r.width * r.height : 0;
+}
+
+exports.getRectArea = getRectArea;
+
+function getRectBounds(r) {
+  var top = r.top;
+  var left = r.left;
+  var bottom = r.top + r.height;
+  var right = r.left + r.width;
+  return {
+    top: top,
+    left: left,
+    bottom: bottom,
+    right: right
+  };
+}
+
+exports.getRectBounds = getRectBounds;
+
+function getRectPoints(r) {
+  var _a = getRectBounds(r),
+      top = _a.top,
+      left = _a.left,
+      bottom = _a.bottom,
+      right = _a.right;
+
+  var topLeft = {
+    x: left,
+    y: top
+  };
+  var topRight = {
+    x: right,
+    y: top
+  };
+  var bottomLeft = {
+    x: left,
+    y: bottom
+  };
+  var bottomRight = {
+    x: right,
+    y: bottom
+  };
+  return {
+    topLeft: topLeft,
+    topRight: topRight,
+    bottomLeft: bottomLeft,
+    bottomRight: bottomRight
+  };
+}
+
+exports.getRectPoints = getRectPoints;
+
+function pointToString(p) {
+  return "Point{" + p.x + "," + p.y + "}";
+}
+
+exports.pointToString = pointToString;
+
+function rectToString(r) {
+  var bounds = getRectBounds(r);
+  return "Rect{" + JSON.stringify(bounds) + "}";
+}
+
+exports.rectToString = rectToString;
+
+/***/ }),
+
+/***/ "../../../../node_modules/react-list-drag-and-drop/lib/RLDD.js":
+/*!*********************************************************************************************!*\
+  !*** /Volumes/Sites/apnic-practical-test/node_modules/react-list-drag-and-drop/lib/RLDD.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+  var extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var RLDDItemComponent_1 = __webpack_require__(/*! ./RLDDItemComponent */ "../../../../node_modules/react-list-drag-and-drop/lib/RLDDItemComponent.js");
+
+var RLDDLogic_1 = __webpack_require__(/*! ./RLDDLogic */ "../../../../node_modules/react-list-drag-and-drop/lib/RLDDLogic.js");
+
+var RLDDFloatingItemComponent_1 = __webpack_require__(/*! ./RLDDFloatingItemComponent */ "../../../../node_modules/react-list-drag-and-drop/lib/RLDDFloatingItemComponent.js");
+
+var RLDD = function (_super) {
+  __extends(RLDD, _super);
+
+  function RLDD(props) {
+    var _this = _super.call(this, props) || this;
+
+    _this.state = {
+      draggedId: -1,
+      hoveredId: -1,
+      draggedItemDimensions: {
+        width: 0,
+        height: 0
+      }
+    };
+
+    _this.createItemComponent = function (item, i) {
+      _this.assertValidItem(item);
+
+      var draggedItemId = _this.state.draggedId;
+      return React.createElement(RLDDItemComponent_1.default, {
+        key: item.id,
+        logic: _this.logic,
+        itemId: item.id,
+        activity: draggedItemId >= 0,
+        dragged: draggedItemId === item.id,
+        hovered: draggedItemId === item.id
+      }, _this.props.itemRenderer(item, i));
+    };
+
+    _this.createFloatingComponent = function () {
+      var draggedItemId = _this.state.draggedId;
+
+      var draggedItemIndex = _this.findItemIndexById(draggedItemId);
+
+      var item = _this.props.items[draggedItemIndex];
+
+      _this.assertValidItem(item);
+
+      return React.createElement(RLDDFloatingItemComponent_1.default, {
+        logic: _this.logic,
+        draggedId: draggedItemId,
+        width: _this.state.draggedItemDimensions.width,
+        height: _this.state.draggedItemDimensions.height
+      }, draggedItemIndex >= 0 && _this.props.itemRenderer(item, draggedItemIndex));
+    };
+
+    _this.handleDragBegin = function (draggedId, width, height) {
+      var draggedItemDimensions = {
+        width: width,
+        height: height
+      };
+
+      _this.setState({
+        draggedId: draggedId,
+        draggedItemDimensions: draggedItemDimensions
+      });
+    };
+
+    _this.handleMouseOver = function (hoveredId) {
+      if (_this.state.draggedId >= 0) {
+        _this.setState({
+          hoveredId: hoveredId
+        }, function () {
+          var newItems = _this.getNewItems();
+
+          if (newItems) {
+            _this.props.onChange(newItems);
+          }
+        });
+      }
+    };
+
+    _this.handleDragEnd = function () {
+      _this.setState({
+        draggedId: -1,
+        hoveredId: -1
+      });
+    };
+
+    _this.assertValidItem = function (item) {
+      if (item) {
+        if (typeof item !== 'object') {
+          throw "RLDD Error. item must be of type 'object', but it's of type '" + typeof item + "'.";
+        }
+
+        if (typeof item.id !== 'number') {
+          throw "RLDD Error. item must have an 'id' property of type 'number'. " + JSON.stringify(item);
+        }
+      }
+    };
+
+    _this.logic = new RLDDLogic_1.default(props.threshold, props.dragDelay);
+    return _this;
+  }
+
+  RLDD.prototype.componentDidMount = function () {
+    this.logic.onDragBeginSignal.addListener(this.handleDragBegin);
+    this.logic.onDragHoverSignal.addListener(this.handleMouseOver);
+    this.logic.onDragEndSignal.addListener(this.handleDragEnd);
+  };
+
+  RLDD.prototype.componentWillUnmount = function () {
+    this.logic.onDragBeginSignal.removeListener(this.handleDragBegin);
+    this.logic.onDragHoverSignal.removeListener(this.handleMouseOver);
+    this.logic.onDragEndSignal.removeListener(this.handleDragEnd);
+  };
+
+  RLDD.prototype.getStateString = function (props, state) {
+    return "draggedId: " + state.draggedId + "\nhoveredId: " + state.hoveredId + "\nitems: " + props.items.map(function (item) {
+      return item.id;
+    }).toString();
+  };
+
+  RLDD.prototype.render = function () {
+    var cssClasses = this.props.cssClasses + ' dl-list';
+    var style = this.computeStyle();
+    var items = this.props.items;
+    return React.createElement("div", {
+      className: cssClasses,
+      style: style
+    }, items.map(this.createItemComponent), this.createFloatingComponent());
+  };
+
+  RLDD.prototype.computeStyle = function () {
+    var display = this.props.layout === 'vertical' ? 'block' : 'flex';
+    return Object.assign({
+      display: display
+    }, this.props.inlineStyle || {});
+  };
+
+  RLDD.prototype.getNewItems = function () {
+    var index0 = this.findItemIndexById(this.state.draggedId);
+    var index1 = this.findItemIndexById(this.state.hoveredId);
+
+    if (index0 >= 0 && index1 >= 0 && index0 !== index1) {
+      var newItems = this.logic.arrangeItems(this.props.items, index0, index1);
+      return newItems;
+    }
+
+    return;
+  };
+
+  RLDD.prototype.findItemIndexById = function (id) {
+    var item = this.props.items.find(function (it) {
+      return it.id === id;
+    });
+    return item ? this.props.items.indexOf(item) : -1;
+  };
+
+  RLDD.defaultProps = {
+    cssClasses: '',
+    inlineStyle: {},
+    layout: 'vertical',
+    threshold: 15,
+    dragDelay: 250
+  };
+  return RLDD;
+}(React.Component);
+
+exports.default = RLDD;
+
+/***/ }),
+
+/***/ "../../../../node_modules/react-list-drag-and-drop/lib/RLDDFloatingItem.css":
+/*!**********************************************************************************************************!*\
+  !*** /Volumes/Sites/apnic-practical-test/node_modules/react-list-drag-and-drop/lib/RLDDFloatingItem.css ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../../../../node_modules/react-list-drag-and-drop/lib/RLDDFloatingItemComponent.js":
+/*!******************************************************************************************************************!*\
+  !*** /Volumes/Sites/apnic-practical-test/node_modules/react-list-drag-and-drop/lib/RLDDFloatingItemComponent.js ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+  var extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+__webpack_require__(/*! ./RLDDFloatingItem.css */ "../../../../node_modules/react-list-drag-and-drop/lib/RLDDFloatingItem.css");
+
+var RLDDFloatingItemComponent = function (_super) {
+  __extends(RLDDFloatingItemComponent, _super);
+
+  function RLDDFloatingItemComponent() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.state = {
+      offsetX: 0,
+      offsetY: 0
+    };
+
+    _this.refresh = function (id, offset) {
+      _this.setState({
+        offsetX: offset.x,
+        offsetY: offset.y
+      });
+    };
+
+    return _this;
+  }
+
+  RLDDFloatingItemComponent.prototype.componentDidMount = function () {
+    this.props.logic.setFloatingItemBoxRect(this.getBox());
+    this.props.logic.onDragMoveSignal.addListener(this.refresh);
+  };
+
+  RLDDFloatingItemComponent.prototype.componentDidUpdate = function () {
+    this.props.logic.setFloatingItemBoxRect(this.getBox());
+  };
+
+  RLDDFloatingItemComponent.prototype.componentWillUnmount = function () {
+    this.props.logic.onDragMoveSignal.removeListener(this.refresh);
+  };
+
+  RLDDFloatingItemComponent.prototype.render = function () {
+    if (this.props.draggedId >= -1) {
+      return React.createElement("div", {
+        className: "dl-item floating",
+        style: {
+          pointerEvents: 'none',
+          position: 'absolute',
+          left: this.state.offsetX,
+          top: this.state.offsetY,
+          width: this.props.width,
+          height: this.props.height
+        }
+      }, this.props.children);
+    } else {
+      return undefined;
+    }
+  };
+
+  RLDDFloatingItemComponent.prototype.getBox = function () {
+    var ref = ReactDOM.findDOMNode(this);
+    return ref ? ref.getBoundingClientRect() : {
+      top: 0,
+      left: 0,
+      width: 0,
+      height: 0
+    };
+  };
+
+  return RLDDFloatingItemComponent;
+}(React.Component);
+
+exports.default = RLDDFloatingItemComponent;
+
+/***/ }),
+
+/***/ "../../../../node_modules/react-list-drag-and-drop/lib/RLDDItemComponent.js":
+/*!**********************************************************************************************************!*\
+  !*** /Volumes/Sites/apnic-practical-test/node_modules/react-list-drag-and-drop/lib/RLDDItemComponent.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+  var extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+var RLDDItemComponent = function (_super) {
+  __extends(RLDDItemComponent, _super);
+
+  function RLDDItemComponent(props) {
+    var _this = _super.call(this, props) || this;
+
+    _this.state = {
+      isDragging: false
+    };
+    _this.isDown = false;
+    _this.mouseDownTimestamp = 0;
+    _this.initialOffset = {
+      x: 0,
+      y: 0
+    };
+    _this.handleMouseDown = _this.handleMouseDown.bind(_this);
+    _this.handleMouseMove = _this.handleMouseMove.bind(_this);
+    _this.handleMouseUp = _this.handleMouseUp.bind(_this);
+    return _this;
+  }
+
+  RLDDItemComponent.prototype.componentDidMount = function () {
+    this.props.logic.setItemIdBoxRect(this.props.itemId, this.getBox());
+  };
+
+  RLDDItemComponent.prototype.componentDidUpdate = function (prevProps, prevState) {
+    if (!this.state.isDragging && prevState.isDragging) {
+      this.removeDocumentListeners();
+    }
+
+    this.props.logic.setItemIdBoxRect(this.props.itemId, this.getBox());
+  };
+
+  RLDDItemComponent.prototype.componentWillUnmount = function () {
+    this.removeDocumentListeners();
+  };
+
+  RLDDItemComponent.prototype.render = function () {
+    var dragged = this.props.dragged ? 'dragged' : '';
+    var hovered = this.props.hovered ? 'hovered' : '';
+    var activity = this.props.activity ? 'activity' : '';
+    var cssClasses = 'dl-item ' + activity + ' ' + dragged + ' ' + hovered;
+    return React.createElement("div", {
+      onMouseDown: this.handleMouseDown,
+      className: cssClasses
+    }, this.props.children);
+  };
+
+  RLDDItemComponent.prototype.addDocumentListeners = function () {
+    document.addEventListener('mouseup', this.handleMouseUp);
+    document.addEventListener('mousemove', this.handleMouseMove);
+  };
+
+  RLDDItemComponent.prototype.removeDocumentListeners = function () {
+    document.removeEventListener('mouseup', this.handleMouseUp);
+    document.removeEventListener('mousemove', this.handleMouseMove);
+  };
+
+  RLDDItemComponent.prototype.handleMouseDown = function (e) {
+    this.isDown = true;
+    this.mouseDownTimestamp = new Date().getTime();
+    this.initialOffset = this.getOffset(e);
+    e.preventDefault();
+    this.addDocumentListeners();
+  };
+
+  RLDDItemComponent.prototype.handleMouseMove = function (e) {
+    if (this.isDown === false || this.getTimeSinceMouseDown() < this.props.logic.getDragDelay()) {
+      return;
+    }
+
+    var offset = {
+      x: e.layerX - this.initialOffset.x,
+      y: e.layerY - this.initialOffset.y
+    };
+
+    if (this.state.isDragging === false && this.isDown) {
+      this.props.logic.handleDragBegin(this.props.itemId);
+    }
+
+    this.setState(Object.assign(this.state, {
+      isDragging: this.isDown
+    }));
+    this.props.logic.handleDragMove(this.props.itemId, offset);
+  };
+
+  RLDDItemComponent.prototype.getTimeSinceMouseDown = function () {
+    return new Date().getTime() - this.mouseDownTimestamp;
+  };
+
+  RLDDItemComponent.prototype.handleMouseUp = function () {
+    this.isDown = false;
+
+    if (this.state.isDragging) {
+      this.setState(Object.assign(this.state, {
+        isDragging: this.isDown
+      }));
+      this.props.logic.handleDragEnd();
+    }
+  };
+
+  RLDDItemComponent.prototype.getBox = function () {
+    var ref = ReactDOM.findDOMNode(this);
+    return ref ? ref.getBoundingClientRect() : {
+      top: 0,
+      left: 0,
+      width: 0,
+      height: 0
+    };
+  };
+
+  RLDDItemComponent.prototype.getOffset = function (e) {
+    var box = this.getBox();
+    var docElement = document.documentElement;
+    return {
+      x: e.pageX - (box.left + docElement.scrollLeft - docElement.clientLeft),
+      y: e.pageY - (box.top + docElement.scrollTop - docElement.clientTop)
+    };
+  };
+
+  return RLDDItemComponent;
+}(React.Component);
+
+exports.default = RLDDItemComponent;
+
+/***/ }),
+
+/***/ "../../../../node_modules/react-list-drag-and-drop/lib/RLDDLogic.js":
+/*!**************************************************************************************************!*\
+  !*** /Volumes/Sites/apnic-practical-test/node_modules/react-list-drag-and-drop/lib/RLDDLogic.js ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Signal_1 = __webpack_require__(/*! ./Signal */ "../../../../node_modules/react-list-drag-and-drop/lib/Signal.js");
+
+var Geom = __webpack_require__(/*! ./Geometry */ "../../../../node_modules/react-list-drag-and-drop/lib/Geometry.js");
+
+var RLDDLogic = function () {
+  function RLDDLogic(threshold, dragDelay) {
+    this.threshold = threshold;
+    this.dragDelay = dragDelay;
+    this.onDragBeginSignal = new Signal_1.default();
+    this.onDragHoverSignal = new Signal_1.default();
+    this.onDragMoveSignal = new Signal_1.default();
+    this.onDragEndSignal = new Signal_1.default();
+    this.lastHoveredId = -1;
+    this.itemBoxRects = new Map();
+  }
+
+  RLDDLogic.prototype.getThreshold = function () {
+    return this.threshold;
+  };
+
+  RLDDLogic.prototype.getDragDelay = function () {
+    return this.dragDelay;
+  };
+
+  RLDDLogic.prototype.setItemIdBoxRect = function (itemId, boxRect) {
+    this.itemBoxRects.set(itemId, boxRect);
+  };
+
+  RLDDLogic.prototype.setFloatingItemBoxRect = function (boxRect) {
+    this.floatingItemBoxRect = boxRect;
+  };
+
+  RLDDLogic.prototype.handleDragBegin = function (draggedId) {
+    var draggedItemRect = this.itemBoxRects.get(draggedId);
+
+    if (draggedItemRect) {
+      this.onDragBeginSignal.dispatch(draggedId, draggedItemRect.width, draggedItemRect.height);
+    }
+  };
+
+  RLDDLogic.prototype.handleDragMove = function (id, offset) {
+    this.onDragMoveSignal.dispatch(id, offset);
+    this.updateHoveredItem();
+  };
+
+  RLDDLogic.prototype.handleDragEnd = function () {
+    this.onDragEndSignal.dispatch();
+  };
+
+  RLDDLogic.prototype.arrangeItems = function (items, index0, index1) {
+    var newItems = items.slice();
+
+    if (index0 !== index1) {
+      var item0 = newItems[index0];
+      var item1 = newItems[index1];
+      var index2 = -1;
+
+      if (index1 > index0) {
+        newItems.splice(index0, 1);
+        index2 = newItems.indexOf(item1) + 1;
+        newItems.splice(index2, 0, item0);
+      } else if (index1 < index0) {
+        newItems.splice(index0, 1);
+        index2 = newItems.indexOf(item1) + 0;
+        newItems.splice(index2, 0, item0);
+      }
+    }
+
+    return newItems;
+  };
+
+  RLDDLogic.prototype.updateHoveredItem = function () {
+    var hoveredId = this.findHoveredItemId();
+
+    if (hoveredId >= 0 && hoveredId !== this.lastHoveredId) {
+      this.lastHoveredId = hoveredId;
+      this.onDragHoverSignal.dispatch(hoveredId);
+    }
+  };
+
+  RLDDLogic.prototype.findHoveredItemId = function () {
+    if (Geom.isRectValid(this.floatingItemBoxRect)) {
+      var areas = this.calculateOverlappingAreas().sort(function (a, b) {
+        return b.area - a.area;
+      });
+
+      if (areas.length > 0 && areas[0].area > 0) {
+        return areas[0].id;
+      }
+    }
+
+    return -1;
+  };
+
+  RLDDLogic.prototype.calculateOverlappingAreas = function () {
+    var _this = this;
+
+    var areas = new Array();
+    this.itemBoxRects.forEach(function (rect, itemId) {
+      var area = Geom.getAreaOfIntersection(rect, _this.floatingItemBoxRect) / Geom.getRectArea(rect);
+      areas.push({
+        id: itemId,
+        area: area
+      });
+    });
+    return areas;
+  };
+
+  return RLDDLogic;
+}();
+
+exports.default = RLDDLogic;
+
+/***/ }),
+
+/***/ "../../../../node_modules/react-list-drag-and-drop/lib/Signal.js":
+/*!***********************************************************************************************!*\
+  !*** /Volumes/Sites/apnic-practical-test/node_modules/react-list-drag-and-drop/lib/Signal.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Signal = function () {
+  function Signal() {
+    this.listeners = [];
+  }
+
+  Signal.prototype.addListener = function (listener) {
+    this.listeners.push(listener);
+  };
+
+  Signal.prototype.removeListener = function (listener) {
+    var index = this.listeners.indexOf(listener);
+
+    if (index >= 0) {
+      this.listeners.splice(index, 1);
+    }
+  };
+
+  Signal.prototype.dispatch = function () {
+    var args = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      args[_i] = arguments[_i];
+    }
+
+    this.listeners.forEach(function (listener) {
+      listener.apply(void 0, args);
+    });
+  };
+
+  return Signal;
+}();
+
+exports.default = Signal;
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!

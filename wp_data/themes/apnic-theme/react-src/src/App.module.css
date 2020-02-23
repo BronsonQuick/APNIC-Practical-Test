@@ -10,13 +10,6 @@
   align-items: center;
   justify-content: center;
   margin: 10px;
-}
-p, ul {
   text-align: center;
 }
-ul {
-  list-style: none;
-}
-li {
-  margin: 5px 0;
-}
+
