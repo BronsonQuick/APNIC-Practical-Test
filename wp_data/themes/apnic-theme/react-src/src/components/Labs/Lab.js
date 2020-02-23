@@ -1,7 +1,8 @@
 import React from 'react';
+import './Lab.css';
 
 const Lab = (props) => (
-	<li>{props.name}</li>
+	<div>{props.name}</div>
 );
 
 export default Lab;
