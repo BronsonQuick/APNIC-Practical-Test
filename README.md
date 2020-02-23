@@ -22,3 +22,7 @@ To get the project up and running please to the following:
 ### A gif demonstrating loading the REST API data in React
 
 ![screencast_2020-02-23_22-33-08](https://user-images.githubusercontent.com/1377956/75112325-7cf50a80-568e-11ea-922d-8c8060dfb3ad.gif)
+
+### A gif demonstrating loading the REST API data in React and allowing drag and drop
+
+![dragon](https://user-images.githubusercontent.com/1377956/75114026-6191fb80-569e-11ea-87a7-85a21ac1549b.gif)
