@@ -15,24 +15,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_assets_images_apnic_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_assets_images_apnic_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _App_module_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.module.css */ "./src/App.module.css");
 /* harmony import */ var _App_module_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_App_module_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_Labs_Labs_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Labs/Labs.js */ "./src/components/Labs/Labs.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 var _jsxFileName = "/Volumes/Sites/apnic-practical-test/wp_data/themes/apnic-theme/react-src/src/App.js";
 
 
 
+
+
+axios__WEBPACK_IMPORTED_MODULE_4___default.a.defaults.baseURL = ' https://academy.apnic.net/wp-json/academy';
 
 function App() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "App",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7
+      lineNumber: 11
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
     className: _App_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.Header,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8
+      lineNumber: 12
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -41,7 +47,19 @@ function App() {
     alt: "APNIC Logo",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9
+      lineNumber: 13
+    },
+    __self: this
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Labs_Labs_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 16
     },
     __self: this
   })));
@@ -71,6 +89,54 @@ module.exports = {"Logo":"App_Logo__3Ad8t","Header":"App_Header__ZS1m2"};
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/media/apnic.6df07f49.svg";
+
+/***/ }),
+
+/***/ "./src/components/Labs/Labs.js":
+/*!*************************************!*\
+  !*** ./src/components/Labs/Labs.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+var _jsxFileName = "/Volumes/Sites/apnic-practical-test/wp_data/themes/apnic-theme/react-src/src/components/Labs/Labs.js";
+
+
+
+class Labs extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  componentDidMount() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/virtual-labs').then(response => {
+      console.log(response.data.virtualLabs);
+    }).catch(error => {
+      return error;
+    });
+  }
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 16
+      },
+      __self: this
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 17
+      },
+      __self: this
+    }, "Open the console to see the response from endpoint"));
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Labs);
 
 /***/ }),
 
