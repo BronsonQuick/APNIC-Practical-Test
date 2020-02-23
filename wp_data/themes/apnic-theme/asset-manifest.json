@@ -1,0 +1,20 @@
+{
+  "files": {
+    "static/js/0.chunk.js": "/wp-content/themes/apnic-theme/static/js/0.chunk.js",
+    "static/js/0.chunk.js.map": "/wp-content/themes/apnic-theme/static/js/0.chunk.js.map",
+    "main.css": "/wp-content/themes/apnic-theme/static/css/main.chunk.css",
+    "main.js": "/wp-content/themes/apnic-theme/static/js/main.chunk.js",
+    "main.css.map": "/wp-content/themes/apnic-theme/static/css/main.chunk.css.map",
+    "main.js.map": "/wp-content/themes/apnic-theme/static/js/main.chunk.js.map",
+    "runtime-main.js": "/wp-content/themes/apnic-theme/static/js/bundle.js",
+    "runtime-main.js.map": "/wp-content/themes/apnic-theme/static/js/bundle.js.map",
+    "index.php": "/wp-content/themes/apnic-theme/index.php",
+    "static/media/apnic.svg": "/wp-content/themes/apnic-theme/static/media/apnic.6df07f49.svg"
+  },
+  "entrypoints": [
+    "static/js/bundle.js",
+    "static/js/0.chunk.js",
+    "static/css/main.chunk.css",
+    "static/js/main.chunk.js"
+  ]
+}
