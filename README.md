@@ -18,3 +18,7 @@ To get the project up and running please to the following:
 2. Run `cd wp_data/themes/apnic-theme/react-src` in a Terminal.
 3. Run `npm run wpstart` to start the development server.
 4. Browse the frontend and edit the files inside `wp_data/themes/apnic-theme/react-src`.
+
+### A gif demonstrating loading the REST API data in React
+
+![Load and display the labs](https://s3.amazonaws.com/bronsons-captured/screencast_2020-02-23_22-33-08.gif "Load and display the labs")
